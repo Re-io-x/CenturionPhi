@@ -19,16 +19,39 @@ const testimonialDetail = document.getElementById('testimonialDetail');
 const faqItems = Array.from(document.querySelectorAll('.faq-item'));
 const themeToggle = document.getElementById('themeToggle');
 const hero = document.querySelector('.hero-background');
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const bentoMenu = document.getElementById('bentoMenu');
+const bentoItems = Array.from(document.querySelectorAll('.bento-item'));
 
 let testimonialIndex = 0;
+
+// Mobile menu toggle
+if (mobileMenuToggle && bentoMenu) {
+  mobileMenuToggle.addEventListener('click', () => {
+    const isOpen = bentoMenu.classList.toggle('active');
+    mobileMenuToggle.setAttribute('aria-expanded', isOpen);
+  });
+
+  bentoItems.forEach((item) => {
+    item.addEventListener('click', () => {
+      bentoMenu.classList.remove('active');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.mobile-nav')) {
+      bentoMenu.classList.remove('active');
+      mobileMenuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+}
 
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   if (themeToggle) {
     const icon = themeToggle.querySelector('.theme-icon');
-    const textSpan = themeToggle.querySelector('span:not(.theme-icon)');
     if (icon) icon.textContent = theme === 'dark' ? '🌙' : '☀️';
-    if (textSpan) textSpan.textContent = theme === 'dark' ? 'Dark' : 'Light';
     themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
   }
   localStorage.setItem('siteTheme', theme);
@@ -87,12 +110,10 @@ filterButtons.forEach((button) => {
 
 portfolioCards.forEach((card) => {
   card.addEventListener('click', () => {
-    const title = card.querySelector('h3').textContent;
-    const category = card.querySelector('span').textContent;
-    caseStudy.querySelector('#caseTitle').textContent = title;
-    caseStudy.querySelector('#caseDescription').textContent = `A refined ${category.toLowerCase()} experience shaped with quiet motion and structural detail.`;
-    caseStudy.classList.add('active');
-    caseStudy.setAttribute('aria-hidden', 'false');
+    const url = card.dataset.url || `https://example.com/project-${card.dataset.case}`;
+    if (url) {
+      window.open(url, '_blank');
+    }
   });
 });
 
@@ -140,7 +161,15 @@ testimonialPrev?.addEventListener('click', () => {
   updateTestimonialPosition(testimonialIndex - 1);
 });
 
+testimonialPrev?.addEventListener('mouseenter', () => {
+  updateTestimonialPosition(testimonialIndex - 1);
+});
+
 testimonialNext?.addEventListener('click', () => {
+  updateTestimonialPosition(testimonialIndex + 1);
+});
+
+testimonialNext?.addEventListener('mouseenter', () => {
   updateTestimonialPosition(testimonialIndex + 1);
 });
 

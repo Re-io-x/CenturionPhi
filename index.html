@@ -22,11 +22,26 @@
         <a href="#about">About</a>
         <a href="#services">Services</a>
         <a href="#portfolio">Portfolio</a>
+        <a href="#testimonials">Testimonials</a>
         <a href="#pricing">Pricing</a>
         <a href="#contact">Contact</a>
       </nav>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"><span class="theme-icon">🌙</span><span>Dark</span></button>
-      <a class="nav-action" href="#contact">Hire</a>
+      <nav class="mobile-nav" id="mobileNav" aria-label="Mobile navigation">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Open mobile menu" aria-expanded="false">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <div class="bento-menu" id="bentoMenu">
+          <a href="#about" class="bento-item bento-item--1">About</a>
+          <a href="#services" class="bento-item bento-item--2">Services</a>
+          <a href="#portfolio" class="bento-item bento-item--3">Portfolio</a>
+          <a href="#testimonials" class="bento-item bento-item--4">Testimonials</a>
+        </div>
+      </nav>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"><span class="theme-icon">🌙</span></button>
+      <a class="nav-action" href="#contact" aria-label="Hire"><span class="nav-action-icon">✧</span></a>
     </header>
 
     <main>
@@ -58,6 +73,37 @@
             <span>Founder / Creative Director</span>
             <h3>Rex Archer</h3>
             <p>Guides the studio with an eye for geometry, rhythm, and refined technical execution.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section leader" id="leadership">
+        <div class="section-intro">
+          <p class="section-label">Leadership</p>
+          <h2>Meet the person in charge of the agency.</h2>
+          <p>Samuel Oso leads CenturionPhi with strategic clarity, premium visual thinking, and systems-driven execution.</p>
+        </div>
+        <div class="leader-grid">
+          <div class="leader-card">
+            <div class="leader-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='360' height='400'%3E%3Crect fill='%23ccc' width='360' height='400'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='18' fill='%23999'%3ELeadership Photo%3C/text%3E%3C/svg%3E\" alt=\"Samuel Oso\"/></div>
+            <span>Agency Principal</span>
+            <h3>Samuel Oso</h3>
+            <p>Samuel shapes the agency’s direction across brand strategy, creative systems, and technical execution.</p>
+          </div>
+          <div class="leader-details">
+            <article class="leader-detail">
+              <h4>Description</h4>
+              <p>Samuel is the guiding force behind disciplined brand systems that feel timeless, confident, and technically informed.</p>
+            </article>
+            <article class="leader-detail">
+              <h4>About</h4>
+              <p>With a focus on refined visual language and structural clarity, Samuel helps ambitious brands achieve premium presence across digital and physical touchpoints.</p>
+            </article>
+            <article class="leader-detail">
+              <h4>Contact</h4>
+              <p>Email: <a href="mailto:samuel@centurionphi.com">samuel@centurionphi.com</a></p>
+              <p>Phone: <a href="tel:+1234567890">+1 234 567 890</a></p>
+            </article>
           </div>
         </div>
       </section>
@@ -105,6 +151,7 @@
         </div>
         <div class="portfolio-grid">
           <article class="portfolio-card" data-category="branding" data-case="1" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Phi Identity"/></div>
             <div class="portfolio-media">Phi Identity</div>
             <div class="portfolio-copy">
               <span>Branding</span>
@@ -112,6 +159,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="web" data-case="2" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Nexus Interface"/></div>
             <div class="portfolio-media">Nexus Interface</div>
             <div class="portfolio-copy">
               <span>Web</span>
@@ -119,13 +167,15 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="graphics" data-case="3" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Motion System"/></div>
             <div class="portfolio-media">Motion System</div>
-            <div class="portfolio-copy">
+          <div class="portfolio-copy">
               <span>Graphics</span>
               <h3>Editorial Suite</h3>
             </div>
           </article>
           <article class="portfolio-card" data-category="cybersecurity" data-case="4" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Secure Grid"/></div>
             <div class="portfolio-media">Secure Grid</div>
             <div class="portfolio-copy">
               <span>Cybersecurity</span>
@@ -133,6 +183,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="branding" data-case="5" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Omega Brand"/></div>
             <div class="portfolio-media">Omega Brand</div>
             <div class="portfolio-copy">
               <span>Branding</span>
@@ -140,6 +191,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="branding" data-case="6" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Sigma Logo"/></div>
             <div class="portfolio-media">Sigma Logo</div>
             <div class="portfolio-copy">
               <span>Branding</span>
@@ -147,6 +199,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="branding" data-case="7" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Delta Visual"/></div>
             <div class="portfolio-media">Delta Visual</div>
             <div class="portfolio-copy">
               <span>Branding</span>
@@ -154,6 +207,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="web" data-case="8" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Alpha Dashboard"/></div>
             <div class="portfolio-media">Alpha Dashboard</div>
             <div class="portfolio-copy">
               <span>Web</span>
@@ -161,6 +215,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="web" data-case="9" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Beta Portal"/></div>
             <div class="portfolio-media">Beta Portal</div>
             <div class="portfolio-copy">
               <span>Web</span>
@@ -168,6 +223,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="web" data-case="10" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Gamma App"/></div>
             <div class="portfolio-media">Gamma App</div>
             <div class="portfolio-copy">
               <span>Web</span>
@@ -175,6 +231,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="graphics" data-case="11" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Vector Art"/></div>
             <div class="portfolio-media">Vector Art</div>
             <div class="portfolio-copy">
               <span>Graphics</span>
@@ -182,6 +239,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="graphics" data-case="12" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Pixel Craft"/></div>
             <div class="portfolio-media">Pixel Craft</div>
             <div class="portfolio-copy">
               <span>Graphics</span>
@@ -189,6 +247,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="graphics" data-case="13" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Design Flow"/></div>
             <div class="portfolio-media">Design Flow</div>
             <div class="portfolio-copy">
               <span>Graphics</span>
@@ -196,6 +255,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="cybersecurity" data-case="14" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Firewall UI"/></div>
             <div class="portfolio-media">Firewall UI</div>
             <div class="portfolio-copy">
               <span>Cybersecurity</span>
@@ -203,6 +263,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="cybersecurity" data-case="15" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Encryption Hub"/></div>
             <div class="portfolio-media">Encryption Hub</div>
             <div class="portfolio-copy">
               <span>Cybersecurity</span>
@@ -210,6 +271,7 @@
             </div>
           </article>
           <article class="portfolio-card" data-category="cybersecurity" data-case="16" data-anim>
+            <div class="portfolio-image"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='500'%3E%3Crect fill='%23ddd' width='400' height='500'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dy='.3em' font-size='16' fill='%23999'%3EPortfolio Image%3C/text%3E%3C/svg%3E" alt="Threat Map"/></div>
             <div class="portfolio-media">Threat Map</div>
             <div class="portfolio-copy">
               <span>Cybersecurity</span>
@@ -289,8 +351,13 @@
               data-detail="Through rigorous detail and clear storytelling, the team shaped a visual system that supports both product and premium messaging.">
               <p>“They delivered a thoughtful brand system with exceptional clarity and composure.”</p>
               <span>Head of Product, Nova Labs</span>
-            </button>
-          </div>
+            </button>            <button class="testimonial-card" type="button"
+              data-title="Director, Quantum Design"
+              data-quote="Precision meets elegance in every interaction—a masterclass in digital craftsmanship."
+              data-detail="The team's attention to detail and systematic approach created a cohesive brand experience that resonated across all platforms.">
+              <p>"Precision meets elegance in every interaction—a masterclass in digital craftsmanship."</p>
+              <span>Director, Quantum Design</span>
+            </button>          </div>
           <button class="testimonial-nav testimonial-nav--next" id="testimonialNext" aria-label="Next testimonial">→</button>
         </div>
       </section>
