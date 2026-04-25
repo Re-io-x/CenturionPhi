@@ -7,8 +7,6 @@ const caseBackdrop = document.getElementById('caseBackdrop');
 const caseClose = document.getElementById('caseClose');
 const testimonialCards = Array.from(document.querySelectorAll('.testimonial-card'));
 const testimonialList = document.getElementById('testimonialList');
-const testimonialPrev = document.getElementById('testimonialPrev');
-const testimonialNext = document.getElementById('testimonialNext');
 const testimonialModal = document.getElementById('testimonialModal');
 const testimonialBackdrop = document.getElementById('testimonialBackdrop');
 const testimonialClose = document.getElementById('testimonialClose');
@@ -157,21 +155,38 @@ function updateTestimonialPosition(index) {
   }
 }
 
-testimonialPrev?.addEventListener('click', () => {
-  updateTestimonialPosition(testimonialIndex - 1);
+// Touch events for swiping
+let startX = 0;
+let currentX = 0;
+let isDragging = false;
+
+testimonialList.addEventListener('touchstart', (e) => {
+  startX = e.touches[0].clientX;
+  isDragging = true;
 });
 
-testimonialPrev?.addEventListener('mouseenter', () => {
-  updateTestimonialPosition(testimonialIndex - 1);
+testimonialList.addEventListener('touchmove', (e) => {
+  if (!isDragging) return;
+  currentX = e.touches[0].clientX;
 });
 
-testimonialNext?.addEventListener('click', () => {
+testimonialList.addEventListener('touchend', () => {
+  if (!isDragging) return;
+  const diff = startX - currentX;
+  if (Math.abs(diff) > 50) {
+    if (diff > 0) {
+      updateTestimonialPosition(testimonialIndex + 1);
+    } else {
+      updateTestimonialPosition(testimonialIndex - 1);
+    }
+  }
+  isDragging = false;
+});
+
+// Auto slide every 5 seconds
+setInterval(() => {
   updateTestimonialPosition(testimonialIndex + 1);
-});
-
-testimonialNext?.addEventListener('mouseenter', () => {
-  updateTestimonialPosition(testimonialIndex + 1);
-});
+}, 5000);
 
 faqItems.forEach((item) => {
   item.addEventListener('click', () => {
@@ -182,16 +197,20 @@ faqItems.forEach((item) => {
   });
 });
 
-const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  contactForm.reset();
-  alert('Message sent — thank you. We will reply shortly.');
-});
+const brandMark = document.querySelector('.brand-mark');
+let clickCount = 0;
 
-const newsletterForm = document.querySelector('.newsletter-form');
-newsletterForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  newsletterForm.reset();
-  alert('Subscribed. Expect concise updates from CenturionPhi.');
+brandMark.addEventListener('click', () => {
+  clickCount++;
+  if (clickCount === 3) {
+    // Easter egg: rainbow gradient on body
+    document.body.style.background = 'linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #4b0082, #9400d3)';
+    document.body.style.backgroundSize = '400% 400%';
+    document.body.style.animation = 'rainbow 2s ease infinite';
+    setTimeout(() => {
+      document.body.style.background = '';
+      document.body.style.animation = '';
+    }, 3000);
+    clickCount = 0;
+  }
 });

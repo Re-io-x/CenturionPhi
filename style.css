@@ -64,6 +64,13 @@ button, input, textarea, a {
   font: inherit;
 }
 
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: none;
+}
+
 img {
   max-width: 100%;
   display: block;
@@ -101,6 +108,26 @@ img {
   50% { transform: scale(1.16); opacity: 1; }
 }
 
+@keyframes heroLoad {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rainbow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
 .site-shell {
   opacity: 0;
   transform: translateY(12px);
@@ -124,6 +151,10 @@ img {
   backdrop-filter: blur(20px);
   background: var(--header-bg);
   border-bottom: 1px solid var(--header-border);
+}
+
+.header-spacer {
+  flex: 1;
 }
 
 .brand-mark {
@@ -352,6 +383,16 @@ html[data-theme="light"] .bento-item--4 {
   position: relative;
   overflow: hidden;
   padding: 0 2rem;
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroLoad 1.2s ease 0.3s forwards;
+}
+
+@keyframes heroLoad {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero-background {
@@ -383,6 +424,16 @@ html[data-theme="light"] .bento-item--4 {
   font-size: clamp(3rem, 5vw, 5.2rem);
   margin-bottom: 1.2rem;
   letter-spacing: -0.05em;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: heroText 1s ease 0.8s forwards;
+}
+
+@keyframes heroText {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .hero p {
@@ -501,7 +552,7 @@ html[data-theme="light"] .bento-item--4 {
 
 .leader-image {
   width: 100%;
-  height: 360px;
+  height: 280px;
   border-radius: 28px;
   overflow: hidden;
   margin-bottom: 1.6rem;
@@ -571,8 +622,10 @@ html[data-theme="light"] .bento-item--4 {
 
 .service-card:hover {
   transform: translateY(-5px);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  border-color: transparent;
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              linear-gradient(135deg, var(--accent-bold), var(--accent-secondary)) border-box;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18), 0 0 20px rgba(139, 92, 246, 0.2);
 }
 
 .service-icon {
@@ -586,6 +639,26 @@ html[data-theme="light"] .bento-item--4 {
   color: var(--accent);
   margin-bottom: 1.3rem;
   font-weight: 700;
+}
+
+.service-card:nth-child(1) .service-icon {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: white;
+}
+
+.service-card:nth-child(2) .service-icon {
+  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  color: white;
+}
+
+.service-card:nth-child(3) .service-icon {
+  background: linear-gradient(135deg, #10b981, #34d399);
+  color: white;
+}
+
+.service-card:nth-child(4) .service-icon {
+  background: linear-gradient(135deg, #ef4444, #f87171);
+  color: white;
 }
 
 .service-card h3 {
@@ -799,10 +872,8 @@ html[data-theme="light"] .bento-item--4 {
 }
 
 .testimonial-shell {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  align-items: center;
-  gap: 1rem;
+  overflow: hidden;
+  position: relative;
 }
 
 .testimonial-list {
@@ -902,8 +973,10 @@ html[data-theme="light"] .bento-item--4 {
 
 .pricing-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.15);
-  box-shadow: 0 40px 90px rgba(0,0,0,0.15);
+  border-color: transparent;
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              linear-gradient(135deg, var(--accent-bold), var(--accent-secondary)) border-box;
+  box-shadow: 0 40px 90px rgba(0,0,0,0.15), 0 0 20px rgba(139, 92, 246, 0.2);
 }
 
 .pricing-card--highlight {
@@ -942,7 +1015,9 @@ html[data-theme="light"] .bento-item--4 {
 
 .insight-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255, 255, 255, 0.15);
+  border-color: transparent;
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              linear-gradient(135deg, var(--accent-bold), var(--accent-secondary)) border-box;
 }
 
 .insight-card span {
@@ -975,7 +1050,9 @@ html[data-theme="light"] .bento-item--4 {
 
 .faq-item:hover {
   transform: translateY(-2px);
-  border-color: rgba(138,82,255,0.22);
+  border-color: transparent;
+  background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+              linear-gradient(135deg, var(--accent-bold), var(--accent-secondary)) border-box;
 }
 
 .faq-item span {
@@ -1050,6 +1127,11 @@ html[data-theme="light"] .bento-item--4 {
   border-radius: 32px;
   border: 1px solid var(--card-border);
   background: var(--card-bg);
+  grid-template-columns: 1fr 1fr;
+}
+
+.contact-form label:nth-child(3) {
+  grid-column: 1 / -1;
 }
 
 .contact-form label {
@@ -1098,6 +1180,28 @@ html[data-theme="light"] .bento-item--4 {
   color: rgba(255,255,255,0.55);
 }
 
+@media (max-width: 720px) {
+  .site-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .site-footer > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .footer-nav {
+    order: 2;
+  }
+
+  .copyright {
+    order: 3;
+  }
+}
+
 [data-anim] {
   opacity: 0;
   transform: translateY(30px);
@@ -1124,14 +1228,14 @@ html[data-theme="light"] .bento-item--4 {
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 
-  .testimonial-shell {
-    grid-template-columns: 1fr;
-  }
-
   .site-header {
     flex-wrap: wrap;
     justify-content: center;
     padding: 1.2rem 1.5rem;
+  }
+
+  .mobile-nav {
+    order: 3;
   }
 }
 
@@ -1181,7 +1285,19 @@ html[data-theme="light"] .bento-item--4 {
     grid-template-columns: 1fr;
   }
 
+  .newsletter-form {
+    grid-template-columns: 1fr auto;
+  }
+
   .contact-links {
     grid-template-columns: 1fr;
+  }
+
+  .contact-form {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form label:nth-child(3) {
+    grid-column: auto;
   }
 }
