@@ -194,8 +194,7 @@ img {
   appearance: none;
   width: 44px;
   height: 44px;
-  border: 1px solid var(--border);
-  border-radius: 12px;
+  border: none;
   background: transparent;
   color: var(--foreground);
   cursor: pointer;
@@ -209,8 +208,8 @@ img {
 }
 
 .mobile-menu-toggle:hover {
-  background: var(--surface-soft);
-  transform: translateY(-1px);
+  background: none;
+  scale: 1.1;
 }
 
 .mobile-menu-toggle span {
@@ -298,10 +297,10 @@ html[data-theme="light"] .bento-item--4 {
 
 .theme-toggle {
   appearance: none;
-  width: 44px;
-  height: 44px;
+  width: 43px;
+  height: 43px;
   border: 1px solid var(--border);
-  border-radius: 16px;
+  border-radius: 15px;
   background: var(--surface-soft);
   color: var(--foreground);
   padding: 0;
