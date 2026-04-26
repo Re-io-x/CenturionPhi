@@ -17,6 +17,9 @@ const testimonialDetail = document.getElementById('testimonialDetail');
 const faqItems = Array.from(document.querySelectorAll('.faq-item'));
 const themeToggle = document.getElementById('themeToggle');
 const hero = document.querySelector('.hero-background');
+const contactForm = document.getElementById('contactForm');
+const newsletterForm = document.querySelector('.newsletter-form');
+const toastShell = document.getElementById('toastShell');
 const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const bentoMenu = document.getElementById('bentoMenu');
 const bentoItems = Array.from(document.querySelectorAll('.bento-item'));
@@ -57,8 +60,8 @@ function setTheme(theme) {
 
 function initTheme() {
   const storedTheme = localStorage.getItem('siteTheme');
-  const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-  setTheme(storedTheme || preferredTheme);
+  const defaultTheme = 'dark';
+  setTheme(storedTheme || defaultTheme);
 }
 
 themeToggle?.addEventListener('click', () => {
@@ -66,16 +69,63 @@ themeToggle?.addEventListener('click', () => {
   setTheme(nextTheme);
 });
 
-window.addEventListener('load', () => {
-  pageLoad.classList.add('hidden');
-  siteShell.classList.add('ready');
+function showToast(title, message, type = 'success') {
+  if (!toastShell) return;
+  const toast = document.createElement('div');
+  toast.className = `toast-card toast-card--${type}`;
+  toast.innerHTML = `
+    <div class="toast-card__icon">✓</div>
+    <div class="toast-card__content">
+      <div class="toast-card__title">${title}</div>
+      <div class="toast-card__message">${message}</div>
+    </div>
+  `;
+  toastShell.appendChild(toast);
+  setTimeout(() => { toast.classList.add('toast-card--hide'); }, 3000);
+  setTimeout(() => { toast.remove(); }, 3650);
+}
+
+if (contactForm) {
+  contactForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    contactForm.reset();
+    showToast('Message sent', 'Your request was submitted successfully.');
+  });
+}
+
+if (newsletterForm) {
+  newsletterForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    newsletterForm.reset();
+    showToast('Subscribed', 'You have been added to the list.');
+  });
+}
+
+let hasLoaded = false;
+function finishLoading() {
+  if (hasLoaded) return;
+  hasLoaded = true;
+  if (pageLoad) pageLoad.classList.add('hidden');
+  if (siteShell) siteShell.classList.add('ready');
   revealOnScroll();
   initTheme();
-});
+}
 
+window.addEventListener('DOMContentLoaded', finishLoading);
+window.addEventListener('load', finishLoading);
+setTimeout(finishLoading, 5000);
+
+let latestScrollY = 0;
+let isTicking = false;
 window.addEventListener('scroll', () => {
-  const scrollY = window.scrollY;
-  hero.style.transform = `translateY(${scrollY * 0.08}px)`;
+  latestScrollY = window.scrollY;
+  if (!isTicking) {
+    isTicking = true;
+    requestAnimationFrame(() => {
+      if (hero) hero.style.transform = `translateY(${latestScrollY * 0.08}px)`;
+      isTicking = false;
+    });
+  }
 });
 
 function revealOnScroll() {
