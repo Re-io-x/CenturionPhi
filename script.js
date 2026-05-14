@@ -20,7 +20,7 @@ const hero = document.querySelector('.hero-background');
 const contactForm = document.getElementById('contactForm');
 const newsletterForm = document.querySelector('.newsletter-form');
 const toastShell = document.getElementById('toastShell');
-const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+const mobileMenuToggle = document.getElementById('mobileMenujToggle');
 const bentoMenu = document.getElementById('bentoMenu');
 const bentoItems = Array.from(document.querySelectorAll('.bento-item'));
 
