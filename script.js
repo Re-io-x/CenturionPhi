@@ -51,8 +51,6 @@ if (mobileMenuToggle && bentoMenu) {
 function setTheme(theme) {
   document.documentElement.setAttribute('data-theme', theme);
   if (themeToggle) {
-    const icon = themeToggle.querySelector('.theme-icon');
-    if (icon) icon.textContent = theme === 'dark' ? '🌙' : '☀️';
     themeToggle.setAttribute('aria-label', `Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`);
   }
   localStorage.setItem('siteTheme', theme);
@@ -205,6 +203,22 @@ function updateTestimonialPosition(index) {
   }
 }
 
+// Add button handlers for testimonials
+const testimonialPrev = document.getElementById('testimonialPrev');
+const testimonialNext = document.getElementById('testimonialNext');
+
+if (testimonialPrev) {
+  testimonialPrev.addEventListener('click', () => {
+    updateTestimonialPosition(testimonialIndex - 1);
+  });
+}
+
+if (testimonialNext) {
+  testimonialNext.addEventListener('click', () => {
+    updateTestimonialPosition(testimonialIndex + 1);
+  });
+}
+
 // Touch events for swiping
 let startX = 0;
 let currentX = 0;
@@ -237,6 +251,50 @@ testimonialList.addEventListener('touchend', () => {
 setInterval(() => {
   updateTestimonialPosition(testimonialIndex + 1);
 }, 5000);
+
+// Text scrambler effect
+function scrambleText(element) {
+  const text = element.textContent;
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+  let count = 0;
+  
+  const interval = setInterval(() => {
+    let scrambled = '';
+    for (let i = 0; i < text.length; i++) {
+      if (i < count || Math.random() < 0.3) {
+        if (text[i] === ' ') {
+          scrambled += ' ';
+        } else {
+          scrambled += chars[Math.floor(Math.random() * chars.length)];
+        }
+      } else {
+        scrambled += text[i];
+      }
+    }
+    element.textContent = scrambled;
+    count++;
+    
+    if (count > text.length) {
+      clearInterval(interval);
+      element.textContent = text;
+    }
+  }, 30);
+}
+
+// Apply scramble effect on scroll to certain elements
+const observerScramble = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting && !entry.target.dataset.scrambled) {
+      entry.target.dataset.scrambled = 'true';
+      scrambleText(entry.target);
+    }
+  });
+}, { threshold: 0.5 });
+
+// Optionally apply to section labels
+document.querySelectorAll('.section-label').forEach(label => {
+  observerScramble.observe(label);
+});
 
 faqItems.forEach((item) => {
   item.addEventListener('click', () => {

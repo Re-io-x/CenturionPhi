@@ -41,8 +41,28 @@
           <a href="#testimonials" class="bento-item bento-item--4">Testimonials</a>
         </div>
       </nav>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode"><span class="theme-icon">🌙</span></button>
-      <a class="nav-action" href="#contact" aria-label="Hire"><span class="nav-action-icon">✧</span></a>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle light and dark mode">
+        <span class="theme-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="12" cy="12" r="5" class="sun-circle"/>
+            <line x1="12" y1="1" x2="12" y2="3" class="sun-ray"/>
+            <line x1="12" y1="21" x2="12" y2="23" class="sun-ray"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" class="sun-ray"/>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" class="sun-ray"/>
+            <line x1="1" y1="12" x2="3" y2="12" class="sun-ray"/>
+            <line x1="21" y1="12" x2="23" y2="12" class="sun-ray"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" class="sun-ray"/>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" class="sun-ray"/>
+          </svg>
+        </span>
+      </button>
+      <a class="nav-action" href="#contact" aria-label="Hire">
+        <span class="nav-action-icon">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      </a>
     </header>
 
     <main>
@@ -50,12 +70,27 @@
         <div class="hero-background"></div>
         <div class="hero-copy">
           <span class="eyebrow">CenturionPhi</span>
-          <h1>Visual Harmony. Brand Perfection.</h1>
+          <h1 class="hero-title typing-text">Visual Harmony. Brand Perfection.</h1>
           <p>Discipline, design systems, and precision-driven thinking tailored for ambitious brands that demand silent luxury.</p>
           <div class="hero-actions">
             <a class="button button-primary" href="#portfolio">View Work</a>
             <a class="button button-ghost" href="#contact">Contact</a>
           </div>
+        </div>
+      </section>
+
+      <section class="partners-section" id="partners" aria-label="Our collaborators and partners">
+        <div class="partners-track">
+          <div class="partner-item">Luxe Studios</div>
+          <div class="partner-item">Design Labs</div>
+          <div class="partner-item">Prime Creative</div>
+          <div class="partner-item">Quantum Design</div>
+          <div class="partner-item">Pulse Agency</div>
+          <div class="partner-item">Luxe Studios</div>
+          <div class="partner-item">Design Labs</div>
+          <div class="partner-item">Prime Creative</div>
+          <div class="partner-item">Quantum Design</div>
+          <div class="partner-item">Pulse Agency</div>
         </div>
       </section>
 
@@ -286,6 +321,7 @@
           <h2>Client perspectives on clarity and craft.</h2>
         </div>
         <div class="testimonial-shell">
+          <button class="testimonial-nav testimonial-nav-prev" id="testimonialPrev" aria-label="Previous testimonial">←</button>
           <div class="testimonial-list" id="testimonialList" role="list">
             <button class="testimonial-card" type="button"
               data-title="Executive Partner, LuxTech"
@@ -321,6 +357,7 @@
               <p>"Precision meets elegance in every interaction—a masterclass in digital craftsmanship."</p>
               <span>Director, Quantum Design</span>
             </button>          </div>
+          <button class="testimonial-nav testimonial-nav-next" id="testimonialNext" aria-label="Next testimonial">→</button>
         </div>
       </section>
 
@@ -474,6 +511,39 @@
       </div>
       <p class="copyright">© 2026 CenturionPhi. All rights reserved.</p>
     </footer>
+
+    <section class="infinite-text-section" aria-label="Infinite text animation">
+      <div class="infinite-text-track">
+        <div class="infinite-text-item">
+          <span>Design Systems</span>
+          <span>•</span>
+          <span>Premium Branding</span>
+          <span>•</span>
+          <span>Digital Excellence</span>
+          <span>•</span>
+          <span>Design Systems</span>
+          <span>•</span>
+          <span>Premium Branding</span>
+          <span>•</span>
+          <span>Digital Excellence</span>
+          <span>•</span>
+        </div>
+        <div class="infinite-text-item">
+          <span>Design Systems</span>
+          <span>•</span>
+          <span>Premium Branding</span>
+          <span>•</span>
+          <span>Digital Excellence</span>
+          <span>•</span>
+          <span>Design Systems</span>
+          <span>•</span>
+          <span>Premium Branding</span>
+          <span>•</span>
+          <span>Digital Excellence</span>
+          <span>•</span>
+        </div>
+      </div>
+    </section>
   </div>
 
   <div class="toast-shell" id="toastShell" aria-live="polite" aria-atomic="true"></div>
