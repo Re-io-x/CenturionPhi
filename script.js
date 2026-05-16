@@ -195,12 +195,12 @@ testimonialModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeTestimonial();
 });
 
-function updateTestimonialPosition(index) {
-  const count = testimonialCards.length;
-  testimonialIndex = ((index % count) + count) % count;
-  if (testimonialList) {
-    testimonialList.style.transform = `translateX(calc(-${testimonialIndex} * (100% + 1.25rem)))`;
-  }
+function scrollTestimonials(direction) {
+  if (!testimonialList || testimonialCards.length === 0) return;
+  const style = getComputedStyle(testimonialList);
+  const gap = parseInt(style.gap, 10) || 20;
+  const cardWidth = testimonialCards[0].offsetWidth + gap;
+  testimonialList.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
 }
 
 // Add button handlers for testimonials
@@ -209,13 +209,13 @@ const testimonialNext = document.getElementById('testimonialNext');
 
 if (testimonialPrev) {
   testimonialPrev.addEventListener('click', () => {
-    updateTestimonialPosition(testimonialIndex - 1);
+    scrollTestimonials(-1);
   });
 }
 
 if (testimonialNext) {
   testimonialNext.addEventListener('click', () => {
-    updateTestimonialPosition(testimonialIndex + 1);
+    scrollTestimonials(1);
   });
 }
 
@@ -224,24 +224,24 @@ let startX = 0;
 let currentX = 0;
 let isDragging = false;
 
-testimonialList.addEventListener('touchstart', (e) => {
+testimonialList?.addEventListener('touchstart', (e) => {
   startX = e.touches[0].clientX;
   isDragging = true;
 });
 
-testimonialList.addEventListener('touchmove', (e) => {
+testimonialList?.addEventListener('touchmove', (e) => {
   if (!isDragging) return;
   currentX = e.touches[0].clientX;
 });
 
-testimonialList.addEventListener('touchend', () => {
+testimonialList?.addEventListener('touchend', () => {
   if (!isDragging) return;
   const diff = startX - currentX;
   if (Math.abs(diff) > 50) {
     if (diff > 0) {
-      updateTestimonialPosition(testimonialIndex + 1);
+      scrollTestimonials(1);
     } else {
-      updateTestimonialPosition(testimonialIndex - 1);
+      scrollTestimonials(-1);
     }
   }
   isDragging = false;
@@ -249,7 +249,7 @@ testimonialList.addEventListener('touchend', () => {
 
 // Auto slide every 5 seconds
 setInterval(() => {
-  updateTestimonialPosition(testimonialIndex + 1);
+  scrollTestimonials(1);
 }, 5000);
 
 // Text scrambler effect
