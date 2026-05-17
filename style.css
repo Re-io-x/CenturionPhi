@@ -332,6 +332,7 @@ img {
   display: none;
   padding: 0.8rem;
   transition: transform var(--transition), background var(--transition), border-color var(--transition);
+  transform-origin: center;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -352,7 +353,7 @@ img {
 }
 
 .mobile-menu-toggle[aria-expanded="true"] {
-  transform: scale(1.02);
+  transform: rotate(90deg);
 }
 
 .bento-menu {

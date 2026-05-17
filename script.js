@@ -178,23 +178,28 @@ function createPortfolioCard(project) {
   imageWrapper.className = 'portfolio-image';
   const iframe = document.createElement('iframe');
 
-  const placeholderHtml = `
-    <style>
-      body{margin:0;background:#111;color:#f5f5f5;font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;}
-      .placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.65rem;text-transform:uppercase;letter-spacing:0.2em;font-size:0.9rem;color:rgba(255,255,255,0.75);}
-      .placeholder-dot{width:10px;height:10px;background:#fff;border-radius:50%;animation:pulse 1.4s ease-in-out infinite;}
-      @keyframes pulse{0%,100%{opacity:.35;transform:scale(0.9);}50%{opacity:1;transform:scale(1.2);}}
-    </style>
-    <div class="placeholder"><div class="placeholder-dot"></div><div>Work preview</div></div>
-  `;
-
-  iframe.srcdoc = placeholderHtml;
   iframe.allow = 'clipboard-write';
   iframe.setAttribute('allowfullscreen', '');
   iframe.referrerPolicy = 'strict-origin-when-cross-origin';
-
   iframe.loading = 'lazy';
-  iframe.title = project.embedUrl ? project.title : `${project.title} preview`;
+
+  if (project.embedUrl) {
+    iframe.src = project.embedUrl;
+  } else if (project.previewHtml) {
+    iframe.srcdoc = project.previewHtml;
+  } else {
+    iframe.srcdoc = `
+      <style>
+        body{margin:0;background:#111;color:#f5f5f5;font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;}
+        .placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.65rem;text-transform:uppercase;letter-spacing:0.2em;font-size:0.9rem;color:rgba(255,255,255,0.75);}
+        .placeholder-dot{width:10px;height:10px;background:#fff;border-radius:50%;animation:pulse 1.4s ease-in-out infinite;}
+        @keyframes pulse{0%,100%{opacity:.35;transform:scale(0.9);}50%{opacity:1;transform:scale(1.2);}}
+      </style>
+      <div class="placeholder"><div class="placeholder-dot"></div><div>${project.title}</div></div>
+    `;
+  }
+
+  iframe.title = `${project.title} preview`;
   imageWrapper.appendChild(iframe);
 
   card.append(imageWrapper);
