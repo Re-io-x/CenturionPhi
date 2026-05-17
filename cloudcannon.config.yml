@@ -1,0 +1,50 @@
+---
+# CloudCannon configuration for Samuel Oso portfolio
+# Static HTML site with no build dependencies
+
+# Source and output directories
+source: .
+output: .
+
+# Build settings
+build:
+  # No build command needed for static files
+  commands: []
+  
+# Disable Ruby and other unnecessary build tools
+collections_config: {}
+markdown:
+  engine: none
+
+# Data files configuration
+data_config:
+  portfolio_data: portfolio-data.js
+  site_content: _data/site.yml
+
+# Collection paths
+collections: {}
+
+# Editable fields in HTML
+_editables:
+  content:
+    - block: 'h1, h2, h3, h4, h5, h6'
+    - block: 'p'
+    - block: 'span'
+    - block: 'strong'
+
+# Paths to ignore from CloudCannon
+ignore_paths:
+  - node_modules
+  - ".git"
+  - ".gitignore"
+  - ".github"
+  - "*.map"
+
+# Disable asset syncing for unnecessary files
+ignore_patterns:
+  - "^\\."
+  - "^\\#"
+  - "(^|/)vendor($|/)"
+
+# Static site settings
+timezone: UTC

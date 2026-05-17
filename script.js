@@ -1,6 +1,7 @@
 const siteShell = document.getElementById('siteShell');
 const pageLoad = document.getElementById('pageLoad');
-const portfolioCards = Array.from(document.querySelectorAll('.portfolio-card'));
+const portfolioGrid = document.getElementById('portfolioGrid');
+let portfolioCards = [];
 const filterButtons = Array.from(document.querySelectorAll('.filter-button'));
 const caseStudy = document.getElementById('caseStudy');
 const caseBackdrop = document.getElementById('caseBackdrop');
@@ -20,7 +21,7 @@ const hero = document.querySelector('.hero-background');
 const contactForm = document.getElementById('contactForm');
 const newsletterForm = document.querySelector('.newsletter-form');
 const toastShell = document.getElementById('toastShell');
-const mobileMenuToggle = document.getElementById('mobileMenujToggle');
+const mobileMenuToggle = document.getElementById('mobileMenuToggle');
 const bentoMenu = document.getElementById('bentoMenu');
 const bentoItems = Array.from(document.querySelectorAll('.bento-item'));
 
@@ -142,26 +143,74 @@ function revealOnScroll() {
   animated.forEach((item) => observer.observe(item));
 }
 
-filterButtons.forEach((button) => {
-  button.addEventListener('click', () => {
-    filterButtons.forEach((btn) => btn.classList.remove('active'));
-    button.classList.add('active');
-    const filter = button.dataset.filter;
-    portfolioCards.forEach((card) => {
-      const match = filter === 'all' || card.dataset.category === filter;
-      card.style.display = match ? 'grid' : 'none';
+function bindPortfolioEvents() {
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      filterButtons.forEach((btn) => btn.classList.remove('active'));
+      button.classList.add('active');
+      const filter = button.dataset.filter;
+      portfolioCards.forEach((card) => {
+        const match = filter === 'all' || card.dataset.category === filter;
+        card.style.display = match ? 'grid' : 'none';
+      });
     });
   });
-});
 
-portfolioCards.forEach((card) => {
-  card.addEventListener('click', () => {
-    const url = card.dataset.url || `https://example.com/project-${card.dataset.case}`;
-    if (url) {
-      window.open(url, '_blank');
-    }
+  portfolioCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const url = card.dataset.url || `https://example.com/project-${card.dataset.case}`;
+      if (url) {
+        window.open(url, '_blank');
+      }
+    });
   });
-});
+}
+
+function createPortfolioCard(project) {
+  const card = document.createElement('article');
+  card.className = 'portfolio-card';
+  card.dataset.category = project.category;
+  card.dataset.case = project.id;
+  if (project.url) card.dataset.url = project.url;
+  card.setAttribute('data-anim', '');
+
+  const imageWrapper = document.createElement('div');
+  imageWrapper.className = 'portfolio-image';
+  const iframe = document.createElement('iframe');
+
+  const placeholderHtml = `
+    <style>
+      body{margin:0;background:#111;color:#f5f5f5;font-family:Inter,sans-serif;display:flex;align-items:center;justify-content:center;height:100vh;}
+      .placeholder{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0.65rem;text-transform:uppercase;letter-spacing:0.2em;font-size:0.9rem;color:rgba(255,255,255,0.75);}
+      .placeholder-dot{width:10px;height:10px;background:#fff;border-radius:50%;animation:pulse 1.4s ease-in-out infinite;}
+      @keyframes pulse{0%,100%{opacity:.35;transform:scale(0.9);}50%{opacity:1;transform:scale(1.2);}}
+    </style>
+    <div class="placeholder"><div class="placeholder-dot"></div><div>Work preview</div></div>
+  `;
+
+  iframe.srcdoc = placeholderHtml;
+  iframe.allow = 'clipboard-write';
+  iframe.setAttribute('allowfullscreen', '');
+  iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+
+  iframe.loading = 'lazy';
+  iframe.title = project.embedUrl ? project.title : `${project.title} preview`;
+  imageWrapper.appendChild(iframe);
+
+  card.append(imageWrapper);
+  return card;
+}
+
+function renderPortfolio() {
+  if (!portfolioGrid || !window.PORTFOLIO_PROJECTS) return;
+  portfolioGrid.innerHTML = '';
+  window.PORTFOLIO_PROJECTS.forEach((project) => portfolioGrid.appendChild(createPortfolioCard(project)));
+  portfolioCards = Array.from(document.querySelectorAll('.portfolio-card'));
+  bindPortfolioEvents();
+  revealOnScroll();
+}
+
+renderPortfolio();
 
 const closeCaseStudy = () => {
   caseStudy.classList.remove('active');

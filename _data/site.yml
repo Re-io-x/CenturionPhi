@@ -1,0 +1,53 @@
+# Site content data for CloudCannon editing
+# Reference these in HTML using data-cc-* attributes
+
+hero:
+  eyebrow: "Samuel Oso"
+  title: "Visual Harmony. Brand Perfection."
+  description: "A refined visual practice led by Samuel Oso, crafting disciplined brand systems and elevated digital experiences."
+
+about:
+  heading: "Design and systems for modern brands with purpose."
+  description: "Samuel Oso bridges premium branding, elevated visual systems, technical product execution, and systems-inspired structure with quiet confidence."
+  practice:
+    title: "Core practice"
+    description: "We craft design systems that feel curated, durable, and precise across brand, digital, and technical ecosystems."
+  founder:
+    title: "Founder / Creative Director"
+    name: "Rex Archer"
+    description: "Guides the studio with an eye for geometry, rhythm, and refined technical execution."
+
+services:
+  heading: "Studio capabilities designed with intentional clarity."
+  note: "A new systems offering is coming soon — reach out for future launch details."
+  list:
+    - title: "Branding"
+      description: "Identity systems, symbol architecture, and brand stories rooted in harmony and restraint."
+    - title: "Graphic Design"
+      description: "Visual systems, editorial layouts, and campaign communications with a premium edge."
+    - title: "Web Development"
+      description: "Pixel-perfect web experiences built in clean code with subtle motion and structural refinement."
+
+portfolio:
+  heading: "Selected collaborations bridging craft and systems."
+
+pricing:
+  heading: "Investment tiers for disciplined creative strategy."
+  tiers:
+    - title: "Brand Starter"
+      description: "Visual identity, guidelines, and launch assets for focused projects."
+      price: "From $10K"
+    - title: "Studio System"
+      description: "Brand, web, and technical design system for elevated digital presence."
+      price: "From $25K"
+    - title: "Full Service"
+      description: "End-to-end creative and systems delivery for premium product platforms."
+      price: "From $45K"
+
+contact:
+  heading: "Start a project or say hello."
+  description: "For collaborations, inquiries, or strategic work, send a concise brief and we'll respond with next steps."
+
+footer:
+  tagline: "Samuel Oso — Visual Harmony. Brand Perfection."
+  copyright: "© 2026 Samuel Oso. All rights reserved."

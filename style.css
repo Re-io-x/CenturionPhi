@@ -251,9 +251,23 @@ img {
 }
 
 .brand-mark {
-  font-size: 1.2rem;
-  letter-spacing: 0.3em;
+  min-width: 56px;
+  min-height: 56px;
+  display: grid;
+  place-items: center;
+  font-size: 0.95rem;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  color: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.04);
+}
+
+.brand-mark--logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.35em;
   color: var(--foreground);
 }
 
@@ -518,12 +532,12 @@ main {
 }
 
 .hero {
-  min-height: 100vh;
+  min-height: 90vh;
   display: grid;
   place-items: center;
   position: relative;
   overflow: hidden;
-  padding: 0 2rem;
+  padding: 0 1.5rem;
 }
 
 .hero-background {
@@ -537,9 +551,9 @@ main {
 .hero-copy {
   position: relative;
   z-index: 1;
-  max-width: 720px;
+  max-width: 700px;
   text-align: center;
-  padding: 4rem 1rem 4rem;
+  padding: 3rem 1rem 3rem;
 }
 
 .hero .eyebrow {
@@ -552,9 +566,10 @@ main {
 }
 
 .hero h1 {
-  font-size: clamp(3rem, 5vw, 5.2rem);
-  margin-bottom: 1.2rem;
-  letter-spacing: -0.05em;
+  font-size: clamp(3rem, 5vw, 4.4rem);
+  margin-bottom: 1rem;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
   opacity: 0;
   transform: translateY(30px);
   animation: heroText 1s ease 0.8s forwards;
@@ -563,10 +578,9 @@ main {
 .hero-title.typing-text {
   overflow: hidden;
   display: inline-block;
-  border-right: 3px solid var(--foreground);
+  border-right: none;
   white-space: normal;
   max-width: 100%;
-  animation: typeWriter 2.5s steps(45, end) 0.8s forwards, blink 0.75s step-end 0.8s infinite;
 }
 
 @keyframes heroText {
@@ -718,7 +732,9 @@ main {
   justify-content: center;
   gap: 0.5rem;
   border-radius: 999px;
-  padding: 1rem 1.9rem;
+  padding: 0.85rem 1.6rem;
+  font-size: 0.95rem;
+  min-height: 44px;
   text-decoration: none;
   transition: transform var(--transition), background var(--transition), color var(--transition), box-shadow var(--transition);
 }
@@ -971,7 +987,7 @@ main {
   border: 1px solid var(--card-border);
   display: grid;
   grid-template-rows: 1fr auto;
-  padding: 2.6rem;
+  padding: 0;
   transition: transform var(--transition), border-color var(--transition), box-shadow var(--transition);
 }
 
@@ -982,18 +998,24 @@ main {
   height: 100%;
   overflow: hidden;
   border-radius: 32px;
+  display: grid;
+  place-items: center;
 }
 
-.portfolio-image img {
+.portfolio-image iframe {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  transform: scale(1);
+  max-width: 100%;
+  max-height: 100%;
+  min-width: 0;
+  min-height: 0;
+  border: none;
+  display: block;
   transition: transform 0.45s ease;
 }
 
-.portfolio-card:hover .portfolio-image img {
-  transform: scale(1.08);
+.portfolio-card:hover .portfolio-image iframe {
+  transform: scale(1.02);
 }
 
 .portfolio-card::before {
@@ -1017,6 +1039,13 @@ main {
   background: linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
               linear-gradient(135deg, var(--accent-bold), var(--accent-secondary)) border-box;
   box-shadow: 0 40px 90px rgba(0,0,0,0.15), 0 0 20px rgba(139, 92, 246, 0.2);
+}
+
+.portfolio-card .portfolio-media,
+.portfolio-card .portfolio-copy {
+  position: relative;
+  z-index: 2;
+  padding: 2.6rem;
 }
 
 .portfolio-card .portfolio-media {
@@ -1181,9 +1210,9 @@ main {
 
 .testimonial-card:hover,
 .testimonial-card:focus-visible {
-  transform: translateY(-4px);
+  transform: translateY(-2px);
   border-color: var(--foreground);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
   outline: none;
 }
 
@@ -1241,6 +1270,14 @@ main {
 
   .testimonial-detail-grid {
     grid-template-columns: 1fr;
+  }
+
+  .newsletter-form {
+    grid-template-columns: 1fr;
+  }
+
+  .newsletter-form button {
+    width: 100%;
   }
 }
 
@@ -1384,17 +1421,24 @@ main {
 
 .newsletter-form {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem;
+  align-items: center;
 }
 
 .newsletter-form input {
+  width: 100%;
   min-width: 0;
-  padding: 1rem 1.2rem;
+  padding: 0.95rem 1.2rem;
   border-radius: 999px;
   border: 1px solid rgba(255,255,255,0.08);
   background: rgba(255,255,255,0.03);
   color: var(--foreground);
+}
+
+.newsletter-form button {
+  padding: 0.95rem 1.4rem;
+  min-height: 52px;
 }
 
 .newsletter-form input::placeholder {
@@ -1417,10 +1461,33 @@ main {
   gap: 0.9rem;
 }
 
+.contact-links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.04);
+  color: var(--foreground);
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.contact-links a:hover {
+  background: rgba(255,255,255,0.08);
+  transform: translateY(-1px);
+}
+
+.contact-links a svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
 .contact-form {
   display: grid;
   gap: 1.4rem;
-  padding: 2.4rem;
+  padding: 1.8rem;
   border-radius: 28px;
   border: 1px solid var(--card-border);
   background: var(--card-bg);
@@ -1573,6 +1640,8 @@ main {
   .mobile-nav {
     display: flex;
     align-items: center;
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .mobile-menu-toggle {
