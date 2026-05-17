@@ -1,6 +1,5 @@
----
 # CloudCannon configuration for Samuel Oso portfolio
-# Static HTML site with no build dependencies
+# Static HTML site configuration with Jekyll support
 
 # Source and output directories
 source: .
@@ -10,19 +9,31 @@ output: .
 build:
   # No build command needed for static files
   commands: []
-  
-# Disable Ruby and other unnecessary build tools
-collections_config: {}
+
+# Timezone settings
+timezone: Africa/Lagos
+
+# Markdown configuration
 markdown:
-  engine: none
+  engine: kramdown
+  options:
+    heading_ids: false
+    gfm: false
+    breaks: false
+    typographer: false
+    attributes: true
+    attribute_elements:
+      inline: right
+      block: below
+      tr: none
+      td: none
+      li: right-of-prefix
+    treat_indentation_as_code: true
 
 # Data files configuration
 data_config:
   portfolio_data: portfolio-data.js
   site_content: _data/site.yml
-
-# Collection paths
-collections: {}
 
 # Editable fields in HTML
 _editables:
@@ -42,9 +53,16 @@ ignore_paths:
 
 # Disable asset syncing for unnecessary files
 ignore_patterns:
-  - "^\\."
-  - "^\\#"
+  - "^\."
+  - "^\#"
   - "(^|/)vendor($|/)"
 
-# Static site settings
-timezone: UTC
+# Snippets and Collections configuration
+_snippets_imports:
+  jekyll: true
+
+collections_config:
+  pages:
+    path: ''
+    icon: wysiwyg
+
