@@ -1617,13 +1617,25 @@ main {
   }
 
   .site-header {
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 1.2rem 1.5rem;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 1.5rem;
+  }
+
+  .site-nav {
+    gap: 1rem;
+    font-size: 0.92rem;
+  }
+
+  .header-spacer {
+    flex: 1 1 0;
+    min-width: 0;
   }
 
   .mobile-nav {
     order: 3;
+    width: auto;
   }
 }
 
@@ -1637,20 +1649,36 @@ main {
     display: none;
   }
 
+  .header-spacer {
+    display: none;
+  }
+
+  .site-header {
+    justify-content: space-between;
+    padding: 0.9rem 1rem;
+    gap: 0.75rem;
+    flex-wrap: nowrap;
+  }
+
   .mobile-nav {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: auto;
     justify-content: flex-end;
+    gap: 0.75rem;
   }
 
   .mobile-menu-toggle {
     display: grid;
+    width: 38px;
+    height: 38px;
+    padding: 0.65rem;
   }
 
   .theme-toggle,
   .nav-action {
-    width: 44px;
+    width: 40px;
+    height: 40px;
     justify-content: center;
   }
 
