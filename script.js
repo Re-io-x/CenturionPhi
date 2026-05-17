@@ -249,31 +249,7 @@ testimonialModal.addEventListener('keydown', (event) => {
   if (event.key === 'Escape') closeTestimonial();
 });
 
-function scrollTestimonials(direction) {
-  if (!testimonialList || testimonialCards.length === 0) return;
-  const style = getComputedStyle(testimonialList);
-  const gap = parseInt(style.gap, 10) || 20;
-  const cardWidth = testimonialCards[0].offsetWidth + gap;
-  testimonialList.scrollBy({ left: direction * cardWidth, behavior: 'smooth' });
-}
-
-// Add button handlers for testimonials
-const testimonialPrev = document.getElementById('testimonialPrev');
-const testimonialNext = document.getElementById('testimonialNext');
-
-if (testimonialPrev) {
-  testimonialPrev.addEventListener('click', () => {
-    scrollTestimonials(-1);
-  });
-}
-
-if (testimonialNext) {
-  testimonialNext.addEventListener('click', () => {
-    scrollTestimonials(1);
-  });
-}
-
-// Touch events for swiping
+// Infinite scroll testimonials with swipe
 let startX = 0;
 let currentX = 0;
 let isDragging = false;
@@ -292,19 +268,66 @@ testimonialList?.addEventListener('touchend', () => {
   if (!isDragging) return;
   const diff = startX - currentX;
   if (Math.abs(diff) > 50) {
+    const cardWidth = testimonialCards[0]?.offsetWidth || 0;
+    const gap = parseInt(getComputedStyle(testimonialList).gap, 10) || 20;
+    const scrollAmount = cardWidth + gap;
+    
     if (diff > 0) {
-      scrollTestimonials(1);
+      testimonialList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     } else {
-      scrollTestimonials(-1);
+      testimonialList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
     }
   }
   isDragging = false;
 });
 
-// Auto slide every 5 seconds
-setInterval(() => {
-  scrollTestimonials(1);
-}, 5000);
+// Mouse swipe support
+let mouseStartX = 0;
+let mouseDown = false;
+
+testimonialList?.addEventListener('mousedown', (e) => {
+  mouseDown = true;
+  mouseStartX = e.clientX;
+});
+
+testimonialList?.addEventListener('mouseup', (e) => {
+  if (!mouseDown) return;
+  mouseDown = false;
+  const diff = mouseStartX - e.clientX;
+  if (Math.abs(diff) > 50) {
+    const cardWidth = testimonialCards[0]?.offsetWidth || 0;
+    const gap = parseInt(getComputedStyle(testimonialList).gap, 10) || 20;
+    const scrollAmount = cardWidth + gap;
+    
+    if (diff > 0) {
+      testimonialList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+    } else {
+      testimonialList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+    }
+  }
+});
+
+// Infinite scroll - duplicate cards for looping
+if (testimonialList && testimonialCards.length > 0) {
+  const cardsFragment = document.createDocumentFragment();
+  testimonialCards.forEach((card) => {
+    const clone = card.cloneNode(true);
+    cardsFragment.appendChild(clone);
+  });
+  testimonialList.appendChild(cardsFragment);
+  
+  // Handle infinite loop
+  testimonialList.addEventListener('scroll', () => {
+    const scrollLeft = testimonialList.scrollLeft;
+    const scrollWidth = testimonialList.scrollWidth;
+    const clientWidth = testimonialList.clientWidth;
+    
+    // If scrolled past halfway through duplicates, reset to beginning
+    if (scrollLeft > scrollWidth - clientWidth * 1.5) {
+      testimonialList.scrollLeft = 0;
+    }
+  });
+}
 
 // Text scrambler effect
 function scrambleText(element) {
