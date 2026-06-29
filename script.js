@@ -6,15 +6,8 @@ const filterButtons = Array.from(document.querySelectorAll('.filter-button'));
 const caseStudy = document.getElementById('caseStudy');
 const caseBackdrop = document.getElementById('caseBackdrop');
 const caseClose = document.getElementById('caseClose');
-const testimonialCards = Array.from(document.querySelectorAll('.testimonial-card'));
-const testimonialList = document.getElementById('testimonialList');
-const testimonialModal = document.getElementById('testimonialModal');
-const testimonialBackdrop = document.getElementById('testimonialBackdrop');
-const testimonialClose = document.getElementById('testimonialClose');
-const testimonialTitle = document.getElementById('testimonialTitle');
-const testimonialQuote = document.getElementById('testimonialQuote');
-const testimonialRole = document.getElementById('testimonialRole');
-const testimonialDetail = document.getElementById('testimonialDetail');
+const testimonialGrid = document.getElementById('testimonial-grid');
+const testimonialMarqueeWrapper = document.getElementById('testimonialMarqueeWrapper');
 const faqItems = Array.from(document.querySelectorAll('.faq-item'));
 const themeToggle = document.getElementById('themeToggle');
 const hero = document.querySelector('.hero-background');
@@ -182,6 +175,7 @@ function createPortfolioCard(project) {
   iframe.setAttribute('allowfullscreen', '');
   iframe.referrerPolicy = 'strict-origin-when-cross-origin';
   iframe.loading = 'lazy';
+  iframe.setAttribute('scrolling', 'no');
 
   if (project.embedUrl) {
     iframe.src = project.embedUrl;
@@ -225,109 +219,82 @@ const closeCaseStudy = () => {
 caseBackdrop.addEventListener('click', closeCaseStudy);
 caseClose.addEventListener('click', closeCaseStudy);
 
-testimonialCards.forEach((card) => {
-  card.addEventListener('click', () => {
-    testimonialTitle.textContent = card.dataset.title;
-    testimonialQuote.textContent = card.dataset.quote;
-    testimonialRole.textContent = card.dataset.title;
-    testimonialDetail.textContent = card.dataset.detail;
+function toggleMarqueePause() {
+  const anyExpanded = Boolean(document.querySelector('.testimonial-card.is-expanded'));
+  testimonialMarqueeWrapper?.classList.toggle('is-paused', anyExpanded);
+}
 
-    testimonialModal.classList.add('active');
-    testimonialModal.setAttribute('aria-hidden', 'false');
-  });
-});
-
-const closeTestimonial = () => {
-  testimonialModal.classList.remove('active');
-  testimonialModal.setAttribute('aria-hidden', 'true');
-};
-
-testimonialBackdrop.addEventListener('click', closeTestimonial);
-testimonialClose.addEventListener('click', closeTestimonial);
-
-testimonialModal.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') closeTestimonial();
-});
-
-// Infinite scroll testimonials with swipe
-let startX = 0;
-let currentX = 0;
-let isDragging = false;
-
-testimonialList?.addEventListener('touchstart', (e) => {
-  startX = e.touches[0].clientX;
-  isDragging = true;
-});
-
-testimonialList?.addEventListener('touchmove', (e) => {
-  if (!isDragging) return;
-  currentX = e.touches[0].clientX;
-});
-
-testimonialList?.addEventListener('touchend', () => {
-  if (!isDragging) return;
-  const diff = startX - currentX;
-  if (Math.abs(diff) > 50) {
-    const cardWidth = testimonialCards[0]?.offsetWidth || 0;
-    const gap = parseInt(getComputedStyle(testimonialList).gap, 10) || 20;
-    const scrollAmount = cardWidth + gap;
-    
-    if (diff > 0) {
-      testimonialList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    } else {
-      testimonialList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    }
+const testimonialsData = [
+  {
+    name: "Lina Hart",
+    image: "https://placehold.co/44x44?text=LH&font=Inter&bg=222&fg=fff",
+    snippet: "The new system feels refined, simple, and infinitely more confident.",
+    fullText: "From the first conversation, the process was structured and thoughtful. The final design system scaled beautifully across our website and brand materials."
+  },
+  {
+    name: "Noah Wells",
+    image: "https://placehold.co/44x44?text=NW&font=Inter&bg=2a2a2a&fg=fff",
+    snippet: "The work delivered a premium experience with purposeful structure at every step.",
+    fullText: "Now every campaign and digital touchpoint feels aligned and easy to manage. The visual system is elegant and built to last."
+  },
+  {
+    name: "Mira Clarke",
+    image: "https://placehold.co/44x44?text=MC&font=Inter&bg=1f1f1f&fg=fff",
+    snippet: "This team transformed our brand with clarity and calm precision.",
+    fullText: "The result is an elevated presence that feels premium without being overly complicated. Every detail was considered, from motion to messaging."
+  },
+  {
+    name: "Arlo Sands",
+    image: "https://placehold.co/44x44?text=AS&font=Inter&bg=111&fg=fff",
+    snippet: "The delivered system supports ambitious growth while staying elegantly restrained.",
+    fullText: "It feels like a true brand platform: coherent, extensible, and beautifully executed. The team made a complex project feel effortless."
   }
-  isDragging = false;
-});
+];
 
-// Mouse swipe support
-let mouseStartX = 0;
-let mouseDown = false;
+function bindTestimonialExpansion() {
+  const expandButtons = Array.from(document.querySelectorAll('.expand-btn'));
 
-testimonialList?.addEventListener('mousedown', (e) => {
-  mouseDown = true;
-  mouseStartX = e.clientX;
-});
+  expandButtons.forEach((button) => {
+    button.addEventListener('click', (event) => {
+      event.stopPropagation();
+      const card = button.closest('.testimonial-card');
+      if (!card) return;
 
-testimonialList?.addEventListener('mouseup', (e) => {
-  if (!mouseDown) return;
-  mouseDown = false;
-  const diff = mouseStartX - e.clientX;
-  if (Math.abs(diff) > 50) {
-    const cardWidth = testimonialCards[0]?.offsetWidth || 0;
-    const gap = parseInt(getComputedStyle(testimonialList).gap, 10) || 20;
-    const scrollAmount = cardWidth + gap;
-    
-    if (diff > 0) {
-      testimonialList.scrollBy({ left: scrollAmount, behavior: 'smooth' });
-    } else {
-      testimonialList.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
-    }
-  }
-});
-
-// Infinite scroll - duplicate cards for looping
-if (testimonialList && testimonialCards.length > 0) {
-  const cardsFragment = document.createDocumentFragment();
-  testimonialCards.forEach((card) => {
-    const clone = card.cloneNode(true);
-    cardsFragment.appendChild(clone);
-  });
-  testimonialList.appendChild(cardsFragment);
-  
-  // Handle infinite loop
-  testimonialList.addEventListener('scroll', () => {
-    const scrollLeft = testimonialList.scrollLeft;
-    const scrollWidth = testimonialList.scrollWidth;
-    const clientWidth = testimonialList.clientWidth;
-    
-    // If scrolled past halfway through duplicates, reset to beginning
-    if (scrollLeft > scrollWidth - clientWidth * 1.5) {
-      testimonialList.scrollLeft = 0;
-    }
+      const expanded = card.classList.toggle('is-expanded');
+      button.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+      toggleMarqueePause();
+    });
   });
 }
+
+function renderTestimonials() {
+  if (!testimonialGrid) return;
+
+  testimonialGrid.innerHTML = testimonialsData
+    .concat(testimonialsData)
+    .map((item) => `
+      <article class="testimonial-card" role="listitem">
+        <p class="testimonial-copy">${item.snippet}</p>
+        <p class="testimonial-full">${item.fullText}</p>
+        <div class="client-info">
+          <img class="client-avatar" src="${item.image}" alt="${item.name}" />
+          <div class="client-meta">
+            <strong>${item.name}</strong>
+          </div>
+        </div>
+        <button class="expand-btn" type="button" aria-expanded="false" aria-label="Expand testimonial">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+          </svg>
+        </button>
+      </article>
+    `)
+    .join('');
+
+  bindTestimonialExpansion();
+}
+
+renderTestimonials();
 
 // Text scrambler effect
 function scrambleText(element) {
