@@ -267,11 +267,42 @@ function bindTestimonialExpansion() {
   });
 }
 
+function updateTestimonialNavState() {
+  if (!testimonialGrid || !testimonialMarqueeWrapper) return;
+
+  const prevButton = testimonialMarqueeWrapper.querySelector('.testimonial-nav--prev');
+  const nextButton = testimonialMarqueeWrapper.querySelector('.testimonial-nav--next');
+  if (!prevButton || !nextButton) return;
+
+  const maxScrollLeft = testimonialGrid.scrollWidth - testimonialGrid.clientWidth;
+  prevButton.disabled = testimonialGrid.scrollLeft <= 0;
+  nextButton.disabled = testimonialGrid.scrollLeft >= Math.max(0, maxScrollLeft - 1);
+}
+
+function scrollTestimonials(direction) {
+  if (!testimonialGrid) return;
+
+  const firstCard = testimonialGrid.querySelector('.testimonial-card');
+  const cardWidth = firstCard?.getBoundingClientRect().width || 340;
+  const gap = parseInt(getComputedStyle(testimonialGrid).columnGap || getComputedStyle(testimonialGrid).gap || '24', 10);
+  testimonialGrid.scrollBy({ left: direction * (cardWidth + gap), behavior: 'smooth' });
+}
+
+function initTestimonialNavigation() {
+  const prevButton = testimonialMarqueeWrapper?.querySelector('.testimonial-nav--prev');
+  const nextButton = testimonialMarqueeWrapper?.querySelector('.testimonial-nav--next');
+
+  prevButton?.addEventListener('click', () => scrollTestimonials(-1));
+  nextButton?.addEventListener('click', () => scrollTestimonials(1));
+  testimonialGrid?.addEventListener('scroll', updateTestimonialNavState, { passive: true });
+  window.addEventListener('resize', updateTestimonialNavState);
+  updateTestimonialNavState();
+}
+
 function renderTestimonials() {
   if (!testimonialGrid) return;
 
   testimonialGrid.innerHTML = testimonialsData
-    .concat(testimonialsData)
     .map((item) => `
       <article class="testimonial-card" role="listitem">
         <p class="testimonial-copy">${item.snippet}</p>
@@ -292,6 +323,7 @@ function renderTestimonials() {
     .join('');
 
   bindTestimonialExpansion();
+  initTestimonialNavigation();
 }
 
 renderTestimonials();
